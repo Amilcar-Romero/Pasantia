@@ -1,0 +1,618 @@
+use pasantia;
+CREATE TABLE rol (
+    id_rol int not null auto_increment primary key,
+    nombre_rol varchar(256),
+    descripcion varchar(256),
+    fecha_registro datetime default current_timestamp()
+);
+
+CREATE TABLE proveedor (
+    id_proveedor int not null auto_increment primary key,
+    nombre_proveedor varchar(256),
+    nit_proveedor varchar(256),
+    correo_proveedor varchar(256),
+    telefono_proveedor varchar(256),
+    estado bit,
+    fecha_registro datetime default current_timestamp()
+);
+
+CREATE TABLE categoria (
+    id_categoria int not null auto_increment primary key,
+    nombre_categoria varchar(256),
+    estado bit,
+    fecha_registro datetime default current_timestamp()
+);
+
+CREATE TABLE cliente (
+    id_cliente int not null auto_increment primary key,
+    nombre_cliente varchar(256),
+    apellido_cliente varchar(256),
+    carnet_cliente varchar(256),
+    telefono_cliente varchar(256),
+    correo_cliente varchar(256),
+    estado bit,
+    fecha_registro datetime default current_timestamp()
+);
+
+CREATE TABLE usuario (
+    id_usuario int not null auto_increment primary key,
+    nombre_usuario varchar(256),
+    apellido_usuario varchar(256),
+    carnet_usuario varchar(256),
+    correo_usuario varchar(256),
+    clave_usuario varchar(256),
+    id_rol int,
+    estado bit,
+    fecha_registro datetime default current_timestamp(),
+    foreign key (id_rol) references rol(id_rol)
+);
+
+CREATE TABLE producto (
+    id_producto int not null auto_increment primary key,
+    id_categoria int,
+    nombre_producto varchar(256),
+    descripcion_producto varchar(256),
+    unidad_medida varchar(256),
+    stock_producto int not null default 0,
+    estado bit,
+    fecha_registro datetime default current_timestamp(),
+    foreign key (id_categoria) references categoria(id_categoria)
+);
+
+CREATE TABLE precio_producto (
+    id_precio int not null auto_increment primary key,
+    id_producto int,
+    precio_compra decimal(10,2),
+    precio_venta decimal(10,2),
+    fecha_inicio datetime default current_timestamp(),
+    fecha_fin datetime,
+    foreign key (id_producto) references producto(id_producto)
+);
+
+CREATE TABLE compra (
+    id_compra int not null auto_increment primary key,
+    id_usuario int,
+    id_proveedor int,
+    numero_factura_compra int,
+    monto_total_compra decimal(10,2),
+    fecha_registro datetime default current_timestamp(),
+    foreign key (id_usuario) references usuario(id_usuario),
+    foreign key (id_proveedor) references proveedor(id_proveedor)
+);
+
+CREATE TABLE detalle_compra (
+    id_detallecompra int not null auto_increment primary key,
+    id_compra int,
+    id_producto int,
+    precio_compra decimal(10,2),
+    cantidad_detallecompra int,
+    monto_total_detallecompra decimal(10,2),
+    fecha_registro datetime default current_timestamp(),
+    foreign key (id_compra) references compra(id_compra),
+    foreign key (id_producto) references producto(id_producto)
+);
+
+CREATE TABLE venta (
+    id_venta int not null auto_increment primary key,
+    id_usuario int,
+    id_cliente int,
+    tipo_venta varchar(256),
+    numero_factura_venta int,
+    carnet_cliente_venta varchar(256),
+    nombre_cliente_venta varchar(256),
+    apellido_cliente_venta varchar(256),
+    monto_pago_venta decimal(10,2),
+    monto_cambio_venta decimal(10,2),
+    monto_total_venta decimal(10,2),
+    fecha_registro datetime default current_timestamp(),
+    foreign key (id_usuario) references usuario(id_usuario),
+    foreign key (id_cliente) references cliente(id_cliente)
+);
+
+CREATE TABLE detalle_venta (
+    id_detalleventa int not null auto_increment primary key,
+    id_venta int,
+    id_producto int,
+    precio_venta decimal(10,2),
+    cantidad_detalleventa int,
+    subtotal_detalleventa decimal(10,2),
+    fecha_registro datetime default current_timestamp(),
+    foreign key (id_venta) references venta(id_venta),
+    foreign key (id_producto) references producto(id_producto)
+);
+
+CREATE TABLE pago_credito (
+    id_pagocredito int not null auto_increment primary key,
+    monto_pago_pagocredito decimal(10,2) not null,
+    saldo_pendiente_pagocredito decimal(10,2) not null,
+    fecha_registro datetime default current_timestamp()
+);
+
+CREATE TABLE detalle_credito (
+    id_detallecredito int not null auto_increment primary key,
+    id_venta int not null,
+    id_pagocredito int not null,
+    fecha_registro datetime default current_timestamp(),
+    foreign key (id_venta) references venta (id_venta),
+    foreign key (id_pagocredito) references pago_credito (id_pagocredito)
+);
+
+CREATE TABLE negocio (
+    id_negocio int primary key,
+    nombre_negocio varchar(256),
+    ruc_negocio varchar(256),
+    direccion_negocio varchar(256),
+    logo varchar(256)
+);
+-- Roles
+INSERT INTO rol (nombre_rol, descripcion) VALUES 
+('Administrador', 'Rol para administradores del sistema'),
+('Empleado', 'Rol para empleados del supermercado'),
+('Cliente', 'Rol para clientes del supermercado');
+
+-- Proveedores
+INSERT INTO proveedor (nombre_proveedor, nit_proveedor, correo_proveedor, telefono_proveedor, estado) VALUES
+('Proveedor A', '123456-7', 'proveedora@example.com', '12345678', 1),
+('Proveedor B', '987654-3', 'proveedorb@example.com', '87654321', 1),
+('Proveedor C', '654321-0', 'proveedorc@example.com', '45678912', 1),
+('Proveedor D', '456789-1', 'proveedord@example.com', '98765432', 1),
+('Proveedor E', '321654-6', 'proveedore@example.com', '13579246', 1);
+
+-- Categorías
+INSERT INTO categoria (nombre_categoria, estado) VALUES
+('Alimentos', 1),
+('Bebidas', 1),
+('Productos de limpieza', 1),
+('Electrodomésticos', 1),
+('Hogar', 1);
+
+-- Clientes
+INSERT INTO cliente (nombre_cliente, apellido_cliente, carnet_cliente, telefono_cliente, correo_cliente, estado) VALUES
+('Juan', 'Pérez', '123456789', '12345678', 'juan@example.com', 1),
+('María', 'González', '987654321', '87654321', 'maria@example.com', 1),
+('Pedro', 'López', '456789123', '45678912', 'pedro@example.com', 1),
+('Laura', 'Martínez', '321654987', '98765432', 'laura@example.com', 1),
+('Carlos', 'Sánchez', '654987321', '13579246', 'carlos@example.com', 1);
+
+-- Usuarios
+INSERT INTO usuario (nombre_usuario, apellido_usuario, carnet_usuario, correo_usuario, clave_usuario, id_rol, estado) VALUES
+('Roy', 'Admin', '00000000', 'roy@example.com', 'contraseña123', 1, 1),
+('Empleado', 'Uno', '11111111', 'empleado1@example.com', 'contraseña456', 2, 1),
+('Empleado', 'Dos', '22222222', 'empleado2@example.com', 'contraseña789', 2, 1),
+('Cliente', 'Uno', '33333333', 'cliente1@example.com', 'contraseñaabc', 3, 1),
+('Cliente', 'Dos', '44444444', 'cliente2@example.com', 'contraseñadef', 3, 1);
+
+-- Productos
+INSERT INTO producto (id_categoria, nombre_producto, descripcion_producto, unidad_medida, stock_producto, estado) VALUES
+(1, 'Arroz', 'Arroz blanco de grano largo', 'kg', 100, 1),
+(1, 'Frijoles', 'Frijoles negros', 'kg', 50, 1),
+(2, 'Agua mineral', 'Agua mineral natural', 'unidad', 200, 1),
+(3, 'Detergente', 'Detergente líquido para lavar ropa', 'litro', 80, 1),
+(4, 'Licuadora', 'Licuadora de 6 velocidades', 'unidad', 30, 1);
+-- Precios de Producto
+INSERT INTO precio_producto (id_producto, precio_compra, precio_venta) VALUES
+(1, 10.50, 15.00),
+(2, 8.00, 12.00),
+(3, 1.50, 2.50),
+(4, 5.00, 8.00),
+(5, 25.00, 35.00);
+
+-- Compras
+INSERT INTO compra (id_usuario, id_proveedor, numero_factura_compra, monto_total_compra) VALUES
+(1, 1, 1001, 250.00),
+(1, 2, 1002, 180.00),
+(1, 3, 1003, 120.00),
+(1, 4, 1004, 300.00),
+(1, 5, 1005, 500.00);
+
+-- Detalle de Compra
+INSERT INTO detalle_compra (id_compra, id_producto, precio_compra, cantidad_detallecompra, monto_total_detallecompra) VALUES
+(1, 1, 10.50, 5, 52.50),
+(1, 2, 8.00, 3, 24.00),
+(2, 3, 1.50, 10, 15.00),
+(3, 4, 5.00, 4, 20.00),
+(4, 5, 25.00, 2, 50.00);
+
+-- Ventas
+INSERT INTO venta (id_usuario, id_cliente, tipo_venta, numero_factura_venta, monto_pago_venta, monto_cambio_venta, monto_total_venta) VALUES
+(1, 1, 'Efectivo', 2001, 300.00, 50.00, 250.00),
+(1, 2, 'Tarjeta', 2002, 150.00, 0.00, 150.00),
+(1, 3, 'Efectivo', 2003, 80.00, 0.00, 80.00),
+(1, 4, 'Efectivo', 2004, 200.00, 0.00, 200.00),
+(1, 5, 'Tarjeta', 2005, 400.00, 50.00, 350.00);
+
+-- Detalle de Venta
+INSERT INTO detalle_venta (id_venta, id_producto, precio_venta, cantidad_detalleventa, subtotal_detalleventa) VALUES
+(1, 1, 15.00, 3, 45.00),
+(1, 2, 12.00, 2, 24.00),
+(2, 3, 2.50, 4, 10.00),
+(3, 4, 8.00, 2, 16.00),
+(4, 5, 35.00, 1, 35.00);
+
+-- Pagos a Crédito
+INSERT INTO pago_credito (monto_pago_pagocredito, saldo_pendiente_pagocredito) VALUES
+(50.00, 200.00),
+(20.00, 130.00),
+(30.00, 50.00),
+(100.00, 100.00),
+(200.00, 150.00);
+
+INSERT INTO detalle_credito (id_venta, id_pagocredito) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE InsertarCategoria(
+    IN nombre_categoria VARCHAR(256),
+    IN estado BIT
+)
+BEGIN
+    INSERT INTO categoria (nombre_categoria, estado, fecha_registro)
+    VALUES (nombre_categoria, estado, CURRENT_TIMESTAMP);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE EditarCategoria(
+    IN id_categoria INT,
+    IN nuevo_nombre_categoria VARCHAR(256),
+    IN nuevo_estado BIT
+)
+BEGIN
+    UPDATE categoria
+    SET nombre_categoria = nuevo_nombre_categoria,
+        estado = nuevo_estado
+    WHERE id_categoria = id_categoria;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE InsertarCliente(
+    IN nombre_cliente VARCHAR(256),
+    IN apellido_cliente VARCHAR(256),
+    IN carnet_cliente VARCHAR(256),
+    IN telefono_cliente VARCHAR(256),
+    IN correo_cliente VARCHAR(256),
+    IN estado_cliente BIT
+)
+BEGIN
+    INSERT INTO cliente (nombre_cliente, apellido_cliente, carnet_cliente, telefono_cliente, correo_cliente, estado, fecha_registro)
+    VALUES (nombre_cliente, apellido_cliente, carnet_cliente, telefono_cliente, correo_cliente, estado_cliente, CURRENT_TIMESTAMP);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE EditarCliente(
+    IN id_cliente INT,
+    IN nuevo_nombre_cliente VARCHAR(256),
+    IN nuevo_apellido_cliente VARCHAR(256),
+    IN nuevo_carnet_cliente VARCHAR(256),
+    IN nuevo_telefono_cliente VARCHAR(256),
+    IN nuevo_correo_cliente VARCHAR(256)
+)
+BEGIN
+    UPDATE cliente
+    SET nombre_cliente = nuevo_nombre_cliente,
+        apellido_cliente = nuevo_apellido_cliente,
+        carnet_cliente = nuevo_carnet_cliente,
+        telefono_cliente = nuevo_telefono_cliente,
+        correo_cliente = nuevo_correo_cliente
+    WHERE id_cliente = id_cliente;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE CambiarEstadoCliente(
+    IN id_cliente INT,
+    IN nuevo_estado BIT
+)
+BEGIN
+    UPDATE cliente
+    SET estado = nuevo_estado
+    WHERE id_cliente = id_cliente;
+END //
+DELIMITER ;
+DELIMITER //
+CREATE PROCEDURE FiltrarClientes(
+    IN filtro_nombre VARCHAR(256),
+    IN filtro_apellido VARCHAR(256),
+    IN filtro_ci VARCHAR(256)
+)
+BEGIN
+    SET @query = CONCAT('SELECT * FROM vista_clientes WHERE 1');
+    
+    IF filtro_nombre IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND nombre_cliente LIKE \'%', filtro_nombre, '%\'');
+    END IF;
+    
+    IF filtro_apellido IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND apellido_cliente LIKE \'%', filtro_apellido, '%\'');
+    END IF;
+    
+    IF filtro_ci IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND carnet_cliente LIKE \'%', filtro_ci, '%\'');
+    END IF;
+    
+    SET @query = CONCAT(@query, ' ORDER BY nombre_cliente, apellido_cliente');
+    
+    PREPARE statement FROM @query;
+    EXECUTE statement;
+    DEALLOCATE PREPARE statement;
+END;
+DELIMITER ;
+-- Insertar proveedor
+DELIMITER //
+CREATE PROCEDURE InsertarProveedor(
+    IN nombre_proveedor VARCHAR(256),
+    IN nit_proveedor VARCHAR(256),
+    IN correo_proveedor VARCHAR(256),
+    IN telefono_proveedor VARCHAR(256),
+    IN estado BIT
+)
+BEGIN
+    INSERT INTO proveedor (nombre_proveedor, nit_proveedor, correo_proveedor, telefono_proveedor, estado, fecha_registro)
+    VALUES (nombre_proveedor, nit_proveedor, correo_proveedor, telefono_proveedor, estado, CURRENT_TIMESTAMP);
+END //
+DELIMITER ;
+
+-- Editar proveedor
+DELIMITER //
+CREATE PROCEDURE EditarProveedor(
+    IN id_proveedor INT,
+    IN nuevo_nombre_proveedor VARCHAR(256),
+    IN nuevo_nit_proveedor VARCHAR(256),
+    IN nuevo_correo_proveedor VARCHAR(256),
+    IN nuevo_telefono_proveedor VARCHAR(256)
+)
+BEGIN
+    UPDATE proveedor
+    SET nombre_proveedor = nuevo_nombre_proveedor,
+        nit_proveedor = nuevo_nit_proveedor,
+        correo_proveedor = nuevo_correo_proveedor,
+        telefono_proveedor = nuevo_telefono_proveedor
+    WHERE id_proveedor = id_proveedor;
+END //
+DELIMITER ;
+
+-- Cambiar estado del proveedor
+DELIMITER //
+CREATE PROCEDURE CambiarEstadoProveedor(
+    IN id_proveedor INT,
+    IN nuevo_estado BIT
+)
+BEGIN
+    UPDATE proveedor
+    SET estado = nuevo_estado
+    WHERE id_proveedor = id_proveedor;
+END //
+DELIMITER ;
+
+-- Filtrar proveedores
+DELIMITER //
+CREATE PROCEDURE FiltrarProveedores(
+    IN filtro_nombre VARCHAR(256),
+    IN filtro_nit VARCHAR(256)
+)
+BEGIN
+    SET @query = CONCAT('SELECT * FROM proveedor WHERE 1');
+    
+    IF filtro_nombre IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND nombre_proveedor LIKE \'%', filtro_nombre, '%\'');
+    END IF;
+    
+    IF filtro_nit IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND nit_proveedor LIKE \'%', filtro_nit, '%\'');
+    END IF;
+    
+    SET @query = CONCAT(@query, ' ORDER BY nombre_proveedor');
+    
+    PREPARE statement FROM @query;
+    EXECUTE statement;
+    DEALLOCATE PREPARE statement;
+END //
+DELIMITER ;
+
+-- Procedimiento para insertar o actualizar precios de productos
+DELIMITER //
+CREATE PROCEDURE InsertarActualizarPrecioProducto(
+    IN id_producto INT,
+    IN nuevo_precio_compra DECIMAL(10,2),
+    IN nuevo_precio_venta DECIMAL(10,2)
+)
+BEGIN
+    DECLARE fecha_actual DATETIME;
+    SET fecha_actual = CURRENT_TIMESTAMP();
+    
+    -- Verificar si hay un precio activo para el producto
+    IF EXISTS (SELECT * FROM precio_producto WHERE id_producto = id_producto AND fecha_fin IS NULL) THEN
+        -- Desactivar el precio actual
+        UPDATE precio_producto
+        SET fecha_fin = fecha_actual
+        WHERE id_producto = id_producto AND fecha_fin IS NULL;
+    END IF;
+    
+    -- Insertar el nuevo precio
+    INSERT INTO precio_producto (id_producto, precio_compra, precio_venta, fecha_inicio)
+    VALUES (id_producto, nuevo_precio_compra, nuevo_precio_venta, fecha_actual);
+END //
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE FiltrarProductos(
+    IN filtro_nombre VARCHAR(256),
+    IN filtro_categoria VARCHAR(256),
+    IN filtro_unidad VARCHAR(256)
+)
+BEGIN
+    SET @query = 'SELECT * FROM vista_productos WHERE 1';
+    
+    IF filtro_nombre IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND nombre_producto LIKE \'%', filtro_nombre, '%\'');
+    END IF;
+    
+    IF filtro_categoria IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND nombre_categoria LIKE \'%', filtro_categoria, '%\'');
+    END IF;
+    
+    IF filtro_unidad IS NOT NULL THEN
+        SET @query = CONCAT(@query, ' AND unidad_medida LIKE \'%', filtro_unidad, '%\'');
+    END IF;
+    
+    PREPARE statement FROM @query;
+    EXECUTE statement;
+    DEALLOCATE PREPARE statement;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE RegistrarCompra(
+    IN id_usuario INT,
+    IN id_proveedor INT,
+    IN numero_factura_compra INT,
+    IN detalles JSON
+)
+BEGIN
+    DECLARE total_compra DECIMAL(10,2);
+    DECLARE id_producto INT;
+    DECLARE precio_compra DECIMAL(10,2);
+    DECLARE cantidad INT;
+    DECLARE i INT DEFAULT 0;  -- Variable de iteración
+
+    SET total_compra = 0;
+
+    -- Obtener la cantidad de elementos en el arreglo JSON
+    SET @num_detalles = JSON_LENGTH(detalles);
+
+    -- Iterar sobre los detalles de la compra
+    WHILE i < @num_detalles DO
+        -- Obtener los datos del detalle de compra
+        SET id_producto = JSON_UNQUOTE(JSON_EXTRACT(detalles, CONCAT('$[', i, '].id_producto')));
+        SET precio_compra = JSON_UNQUOTE(JSON_EXTRACT(detalles, CONCAT('$[', i, '].precio_compra')));
+        SET cantidad = JSON_UNQUOTE(JSON_EXTRACT(detalles, CONCAT('$[', i, '].cantidad')));
+
+        -- Calcular el monto total del detalle de compra
+        SET @monto_total = precio_compra * cantidad;
+
+        -- Actualizar el precio de compra del producto si es necesario
+        UPDATE producto
+        SET precio_compra_producto = precio_compra
+        WHERE id_producto = id_producto AND precio_compra > precio_compra_producto;
+
+        -- Insertar el detalle de compra
+        INSERT INTO detalle_compra (id_compra, id_producto, precio_compra, cantidad_detallecompra, monto_total_detallecompra)
+        VALUES (LAST_INSERT_ID(), id_producto, precio_compra, cantidad, @monto_total);
+
+        -- Sumar al total de la compra
+        SET total_compra = total_compra + @monto_total;
+
+        SET i = i + 1;  -- Incrementar la variable de iteración
+    END WHILE;
+
+    -- Insertar la compra
+    INSERT INTO compra (id_usuario, id_proveedor, numero_factura_compra, monto_total_compra)
+    VALUES (id_usuario, id_proveedor, numero_factura_compra, total_compra);
+END //
+
+DELIMITER ;
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE InsertarUsuario(
+    IN nuevo_nombre_usuario VARCHAR(256),
+    IN nuevo_apellido_usuario VARCHAR(256),
+    IN nuevo_carnet_usuario VARCHAR(256),
+    IN nuevo_correo_usuario VARCHAR(256),
+    IN nueva_clave_usuario VARCHAR(256),
+    IN nuevo_id_rol INT
+)
+BEGIN
+    INSERT INTO usuario (nombre_usuario, apellido_usuario, carnet_usuario, correo_usuario, clave_usuario, id_rol, estado, fecha_registro)
+    VALUES (nuevo_nombre_usuario, nuevo_apellido_usuario, nuevo_carnet_usuario, nuevo_correo_usuario, nueva_clave_usuario, nuevo_id_rol, 1, CURRENT_TIMESTAMP());
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE ActualizarUsuario(
+    IN id_usuario INT,
+    IN nuevo_nombre_usuario VARCHAR(256),
+    IN nuevo_apellido_usuario VARCHAR(256),
+    IN nuevo_carnet_usuario VARCHAR(256),
+    IN nuevo_correo_usuario VARCHAR(256),
+    IN nuevo_id_rol INT
+)
+BEGIN
+    UPDATE usuario
+    SET nombre_usuario = nuevo_nombre_usuario,
+        apellido_usuario = nuevo_apellido_usuario,
+        carnet_usuario = nuevo_carnet_usuario,
+        correo_usuario = nuevo_correo_usuario,
+        id_rol = nuevo_id_rol
+    WHERE id_usuario = id_usuario;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE ActualizarContraseñaUsuario(
+    IN id_usuario INT,
+    IN nueva_clave_usuario VARCHAR(256)
+)
+BEGIN
+    UPDATE usuario
+    SET clave_usuario = nueva_clave_usuario
+    WHERE id_usuario = id_usuario;
+END //
+
+DELIMITER ;
+DELIMITER //
+
+CREATE PROCEDURE CambiarEstadoUsuario(
+    IN id_usuario INT,
+    IN nuevo_estado BIT
+)
+BEGIN
+    UPDATE usuario
+    SET estado = nuevo_estado
+    WHERE id_usuario = id_usuario;
+END //
+
+DELIMITER ;
+DELIMITER //
+
+CREATE PROCEDURE FiltrarUsuarios(
+    IN filtro_nombre VARCHAR(256),
+    IN filtro_apellido VARCHAR(256),
+    IN filtro_rol_id INT
+)
+BEGIN
+    SELECT u.id_usuario, u.nombre_usuario, u.apellido_usuario, u.carnet_usuario, u.correo_usuario, r.nombre_rol
+    FROM usuario u
+    INNER JOIN rol r ON u.id_rol = r.id_rol
+    WHERE (filtro_nombre IS NULL OR u.nombre_usuario LIKE CONCAT('%', filtro_nombre, '%'))
+        AND (filtro_apellido IS NULL OR u.apellido_usuario LIKE CONCAT('%', filtro_apellido, '%'))
+        AND (filtro_rol_id IS NULL OR u.id_rol = filtro_rol_id);
+END //
+
+DELIMITER ;
+

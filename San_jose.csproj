@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{12E4B44D-793D-4564-A31F-CEC937BFB34A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>San_jose</RootNamespace>
+    <AssemblyName>San_jose</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Guna.Charts.WinForms, Version=1.0.9.0, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
+      <HintPath>packages\Guna.Charts.WinForms.1.0.9\lib\net472\Guna.Charts.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Guna.UI2, Version=2.0.4.6, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
+      <HintPath>packages\Guna.UI2.WinForms.2.0.4.6\lib\net472\Guna.UI2.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.10.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.6.10.9\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Datos\conexion.cs" />
+    <Compile Include="Datos\Repositorio\categoriaRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\clienteRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\compraRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\creditoRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\dashboardRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\loginRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\productoRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\proveedorRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\usuarioRepositorio.cs" />
+    <Compile Include="Datos\Repositorio\ventaRepositorio.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="minisupDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>minisupDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="minisupDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>minisupDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="minisupDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>minisupDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="minisupDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>minisupDataSet3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="minisupDataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>minisupDataSet4.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Negocio\Ncategoria.cs" />
+    <Compile Include="Negocio\Ncliente.cs" />
+    <Compile Include="Negocio\Ncompra.cs" />
+    <Compile Include="Negocio\Ndashboard.cs" />
+    <Compile Include="Negocio\Nlogin.cs" />
+    <Compile Include="Negocio\Nproducto.cs" />
+    <Compile Include="Negocio\Nproveedor.cs" />
+    <Compile Include="Negocio\Nusuario.cs" />
+    <Compile Include="Negocio\Nventa.cs" />
+    <Compile Include="Presentacion\AgregarCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\AgregarCategoria.Designer.cs">
+      <DependentUpon>AgregarCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\AgregarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\AgregarCliente.Designer.cs">
+      <DependentUpon>AgregarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\AgregarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\AgregarProducto.Designer.cs">
+      <DependentUpon>AgregarProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\AgregarProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\AgregarProveedor.Designer.cs">
+      <DependentUpon>AgregarProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\categoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\categoria.Designer.cs">
+      <DependentUpon>categoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\cliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\cliente.Designer.cs">
+      <DependentUpon>cliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\compra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\compra.Designer.cs">
+      <DependentUpon>compra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\configuracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\configuracion.Designer.cs">
+      <DependentUpon>configuracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\dashboard.Designer.cs">
+      <DependentUpon>dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\empresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\empresa.Designer.cs">
+      <DependentUpon>empresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\pagoCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\pagoCredito.Designer.cs">
+      <DependentUpon>pagoCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\producto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\producto.Designer.cs">
+      <DependentUpon>producto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\proveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\proveedores.Designer.cs">
+      <DependentUpon>proveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\reporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\reporte.Designer.cs">
+      <DependentUpon>reporte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Roles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Roles.Designer.cs">
+      <DependentUpon>Roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\usuario.Designer.cs">
+      <DependentUpon>usuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\venta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\venta.Designer.cs">
+      <DependentUpon>venta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\AgregarCategoria.resx">
+      <DependentUpon>AgregarCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\cliente.resx">
+      <DependentUpon>cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\compra.resx">
+      <DependentUpon>compra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\dashboard.resx">
+      <DependentUpon>dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\producto.resx">
+      <DependentUpon>producto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\proveedores.resx">
+      <DependentUpon>proveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\usuario.resx">
+      <DependentUpon>usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Datos\.editorconfig" />
+    <None Include="minisupDataSet.xsc">
+      <DependentUpon>minisupDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>minisupDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="minisupDataSet.xss">
+      <DependentUpon>minisupDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet1.xsc">
+      <DependentUpon>minisupDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>minisupDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="minisupDataSet1.xss">
+      <DependentUpon>minisupDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet2.xsc">
+      <DependentUpon>minisupDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>minisupDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="minisupDataSet2.xss">
+      <DependentUpon>minisupDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet3.xsc">
+      <DependentUpon>minisupDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>minisupDataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="minisupDataSet3.xss">
+      <DependentUpon>minisupDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet4.xsc">
+      <DependentUpon>minisupDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="minisupDataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>minisupDataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="minisupDataSet4.xss">
+      <DependentUpon>minisupDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BD\" />
+    <Folder Include="Recursos\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="minisupDataSet1" targetNamespace="http://tempuri.org/minisupDataSet1.xsd" xmlns:mstns="http://tempuri.org/minisupDataSet1.xsd" xmlns="http://tempuri.org/minisupDataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="minisupConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="minisupConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.San_jose.Properties.Settings.GlobalReference.Default.minisupConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="VistaProveedoresTableAdapter" GeneratorDataComponentClassName="VistaProveedoresTableAdapter" Name="VistaProveedores" UserDataComponentName="VistaProveedoresTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="minisupConnectionString (Settings)" DbObjectName="minisup.dbo.VistaProveedores" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_proveedor, nombre_proveedor, nit_proveedor, correo_proveedor, telefono_proveedor, direccion, estado FROM dbo.VistaProveedores</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_proveedor" DataSetColumn="id_proveedor" />
+              <Mapping SourceColumn="nombre_proveedor" DataSetColumn="nombre_proveedor" />
+              <Mapping SourceColumn="nit_proveedor" DataSetColumn="nit_proveedor" />
+              <Mapping SourceColumn="correo_proveedor" DataSetColumn="correo_proveedor" />
+              <Mapping SourceColumn="telefono_proveedor" DataSetColumn="telefono_proveedor" />
+              <Mapping SourceColumn="direccion" DataSetColumn="direccion" />
+              <Mapping SourceColumn="estado" DataSetColumn="estado" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="minisupDataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="minisupDataSet1" msprop:Generator_DataSetName="minisupDataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="VistaProveedores" msprop:Generator_RowEvHandlerName="VistaProveedoresRowChangeEventHandler" msprop:Generator_RowDeletedName="VistaProveedoresRowDeleted" msprop:Generator_RowDeletingName="VistaProveedoresRowDeleting" msprop:Generator_RowEvArgName="VistaProveedoresRowChangeEvent" msprop:Generator_TablePropName="VistaProveedores" msprop:Generator_RowChangedName="VistaProveedoresRowChanged" msprop:Generator_RowChangingName="VistaProveedoresRowChanging" msprop:Generator_TableClassName="VistaProveedoresDataTable" msprop:Generator_RowClassName="VistaProveedoresRow" msprop:Generator_TableVarName="tableVistaProveedores" msprop:Generator_UserTableName="VistaProveedores">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_proveedor" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="id_proveedor" msprop:Generator_ColumnPropNameInTable="id_proveedorColumn" msprop:Generator_ColumnVarNameInTable="columnid_proveedor" msprop:Generator_UserColumnName="id_proveedor" type="xs:int" />
+              <xs:element name="nombre_proveedor" msprop:Generator_ColumnPropNameInRow="nombre_proveedor" msprop:Generator_ColumnPropNameInTable="nombre_proveedorColumn" msprop:Generator_ColumnVarNameInTable="columnnombre_proveedor" msprop:Generator_UserColumnName="nombre_proveedor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nit_proveedor" msprop:Generator_ColumnPropNameInRow="nit_proveedor" msprop:Generator_ColumnPropNameInTable="nit_proveedorColumn" msprop:Generator_ColumnVarNameInTable="columnnit_proveedor" msprop:Generator_UserColumnName="nit_proveedor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="correo_proveedor" msprop:Generator_ColumnPropNameInRow="correo_proveedor" msprop:Generator_ColumnPropNameInTable="correo_proveedorColumn" msprop:Generator_ColumnVarNameInTable="columncorreo_proveedor" msprop:Generator_UserColumnName="correo_proveedor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="telefono_proveedor" msprop:Generator_ColumnPropNameInRow="telefono_proveedor" msprop:Generator_ColumnPropNameInTable="telefono_proveedorColumn" msprop:Generator_ColumnVarNameInTable="columntelefono_proveedor" msprop:Generator_UserColumnName="telefono_proveedor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="direccion" msprop:Generator_ColumnPropNameInRow="direccion" msprop:Generator_ColumnPropNameInTable="direccionColumn" msprop:Generator_ColumnVarNameInTable="columndireccion" msprop:Generator_UserColumnName="direccion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="256" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="estado" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="estado" msprop:Generator_ColumnPropNameInTable="estadoColumn" msprop:Generator_ColumnVarNameInTable="columnestado" msprop:Generator_UserColumnName="estado" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:VistaProveedores" />
+      <xs:field xpath="mstns:id_proveedor" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
